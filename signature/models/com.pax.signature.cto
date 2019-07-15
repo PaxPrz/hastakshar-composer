@@ -1,0 +1,71 @@
+/*
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+namespace com.pax.signature
+
+participant Signee identified by emailId{
+	o String emailId
+	o String password
+    o String name
+    o String[] allowedList optional
+    --> ValidationInfo val optional
+    --> Signature sign optional
+}
+
+asset Signature identified by sigId{
+  	o String sigId
+    o String signatureHash
+    --> Signee owner
+}
+
+asset ValidationInfo identified by valId{
+  o String valId
+  o String[] valInfo
+}
+
+transaction CreateUser{
+	o String emailId
+    o String name
+    o String password
+}
+
+transaction UploadSignature{
+  	o String sigId
+    o String signatureHash
+}
+
+transaction AddToAllowedList{
+	--> Signee validator
+}
+
+transaction UserCheck{
+  o String email
+  o String password
+}
+
+transaction Disallow{
+	o String email
+}
+
+transaction CheckAllowed{
+    --> Signee owner
+    o String signatureHash
+}
+
+transaction RecordResult{
+  --> Signee owner
+  o Double result
+}
+
+
