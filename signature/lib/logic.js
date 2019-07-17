@@ -135,10 +135,10 @@ async function recordResult(detail){
 	var string = "";
 	try{
 		if(detail.owner.emailId!=null){
-			string = "Result: "+validator.emailId+" got "+detail.result+" verifying your sign.";
+			string = "Result: "+validator.emailId+" got "+detail.result+"% verifying your sign.("+detail.datetime+")";
 		}
 	}catch(err){
-		string = "Failed: "+validator.emailId+" has somehow failed to store.";
+		string = "Failed: "+validator.emailId+" has somehow failed to store. ("+detail.datetime+")";
 	}
   	detail.owner.val.valInfo.push(string);
 	var valInfoRegistry = await getAssetRegistry(ns+'.ValidationInfo');
